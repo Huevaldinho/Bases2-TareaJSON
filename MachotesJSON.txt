@@ -1,0 +1,72 @@
+
+
+
+//------------------------------------------------------------
+//Info Persona (tabla Persona)
+{
+    "nombre": "",
+    "apellidos":"",
+    "email":"",
+    "cedula":"",
+}
+
+//------------------------------------------------------------
+//Info Producto (tabla Producto)
+{
+    "nombre": "",
+    "tipoPresentacion": "",
+    "sabor":[
+        {"nombre": ""},
+        {"nombre": ""}
+    ],
+    "azucar": 0,
+    "numeroLote": 0,
+    "fechaFabricacion": "2022-09-08",
+    "precio": 0
+}
+
+//------------------------------------------------------------
+//Productos (tabla Venta)
+{
+    "productos":[
+        {
+            "nombre": "",
+            "tipoPresentacion": "",
+            "sabor":[
+                {"nombre": ""},
+                {"nombre": ""}
+            ],
+            "azucar": 0,
+            "numeroLote": 0,
+            "fechaFabricacion": "2022-09-08",
+            "precio": 0,
+            "cantidad":1
+        },
+        {
+            "nombre": "",
+            "tipoPresentacion": "",
+            "sabor":[
+                {"nombre": ""},
+                {"nombre": ""}
+            ],
+            "azucar": 0,
+            "numeroLote": 0,
+            "fechaFabricacion": "2022-09-08",
+            "precio": 0,
+            "cantidad":3
+        },
+        {
+            "nombre": "",
+            "tipoPresentacion": "",
+            "sabor":[
+                {"nombre": ""},
+                {"nombre": ""}
+            ],
+            "azucar": 0,
+            "numeroLote": 0,
+            "fechaFabricacion": "2022-09-08",
+            "precio": 0,
+            "cantidad":5
+        }
+    ]
+}

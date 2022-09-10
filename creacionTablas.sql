@@ -55,4 +55,31 @@ Insert into  Producto(idEmpleado,infoProducto,cantidad
     "precio": 500
 }',10);
 
+
+Insert into  Producto(idEmpleado,infoProducto,cantidad
+) VALUES (1,'{
+								"nombre": "Helado Chocolate",
+								"tipoPresentacion": "Paleta",
+								"sabor":[
+									{"nombre": "Chocolate"},
+									{"nombre": "Oreo"}
+								],
+								"azucar": 500,
+								"numeroLote": 2,
+								"fechaFabricacion": "2022-09-08",
+								"precio": 1000
+							}',300);
+Insert into  Producto(idEmpleado,infoProducto,cantidad
+) VALUES (1,'{
+								"nombre": "Helado de Coco",
+								"tipoPresentacion": "Cono",
+								"sabor":[
+									{"nombre": "Coco"},
+									{"nombre": "Caramelo"}
+								],
+								"azucar": 300,
+								"numeroLote": 3,
+								"fechaFabricacion": "2022-09-08",
+								"precio": 500
+							}',50);
 */

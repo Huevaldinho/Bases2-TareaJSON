@@ -166,11 +166,3 @@ select * from producto;
 -- 4. Cree un procedimiento que obtenga los montos de ventas por productos, recibe como 
 --parámetro fechas (opcionales), cliente(opcionales), producto(opcional) 
  
-select json_build_object(
-		'nombre' ,'Hola' ,
-		'presentacion', 'presen5tacion',
-		'sabor',((json_build_array(json_build_object('nombre','otro sabor')))),
-		'azucar',0,
-		'numeroLote',0,
-		'fechaFabricacion','01/01/2022',
-		'precio',0 );

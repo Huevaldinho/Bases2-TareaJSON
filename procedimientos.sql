@@ -96,19 +96,81 @@ CALL CompraProducto('{ "productos":[
 
 
 -- 2. Cree un procedimiento que genere el pedido personalizado de un cliente 
-CREATE PROCEDURE generarPedido()
+CREATE OR REPLACE PROCEDURE generarPedido(idEmpleadoIN integer,idClienteIN integer,infoHelado json)
 
 language plpgsql
 as $generarPedido$
 begin
+	/*	Formato infoHelado
+		'{ "nombre": "",
+			"tipoPresentacion": "",
+			"sabor":[
+        		{"nombre": ""},
+        		{"nombre": ""}
+				]
+		}'
+	*/
+	--El cliente puede pedir un helado de un sabor que no existe,
+	--es decir, el cliente inventa un producto nuevo.
+	--Despues lo podra comprar pero este procedimiento es solo para
+	--crear el nuevo producto.
 
+	--Todos los sabores cuestan lo mismo pero cada sabor se cobra individualmente.
+	--Valida nulos
+	if (idEmpleadoIN is null OR idClienteIN is null OR infoHelado is null ) then
+		raise notice 'Error, debe ingresar todos los parametros.';
+	--Valida cliente y empleado
+	elsif (select idCliente from Cliente where idCliente=idClienteIN)=0 OR
+	 (select idEmpleado from Empleado where idEmpleado=idEmpleadoIN)=0 then
+		raise notice 'Error, no existe cliente o empleado con los parametros ingresados.';
+	--Validar nombre repetido
+	elsif (select count(idProducto) from Producto where infoProducto->>'nombre' = infoHelado->>'nombre')>0 then			
+		raise notice 'Error, nombre de helado repetido.';
+	--Valida sabores
+	elsif json_array_length(infoHelado->'sabor')<1 then
+		raise notice 'Error, debe ingresar al menos un sabor.';
+	end if;
 
-
+	insert into Producto (idEmpleado,infoProducto,cantidad ) values (idEmpleadoIN,(select json_build_object(
+		'nombre' ,infoHelado->>'nombre' ,
+		'tipoPresentacion',infoHelado->>'tipoPresentacion',
+		--'sabor',(json_build_array(json_build_object('nombre',infoHelado->'sabor'->>'nombre'))),--esta linea no saca los nombres
+		'sabor',(select infoHelado-'sabor'),
+		'azucar',0,
+		'numeroLote',0,
+		'fechaFabricacion','',
+		'precio',0 )
+		),
+		0);
 
 end;$generarPedido$
+
+select * from Empleado;
+select * from Cliente;
+
+call generarPedido(1,1,'{ 
+				   "nombre": "Helado hechizo 3",
+					"tipoPresentacion": "cono",
+					"sabor":[
+						{"nombre": "cacao"},
+						{"nombre": "guacamole"}
+						] }');
+						  
+select * from producto;
+
+
+
 -- 3. Cree un procedimiento que busque productos por alguna de las características, obtenga el 
 --precio y cantidades disponibles 
 
 -- 4. Cree un procedimiento que obtenga los montos de ventas por productos, recibe como 
 --parámetro fechas (opcionales), cliente(opcionales), producto(opcional) 
  
+select json_build_object(
+		'nombre' ,'Hola' ,
+		'presentacion', 'presen5tacion',
+		'sabor',((json_build_array(json_build_object('nombre','otro sabor')))),
+		'azucar',0,
+		'numeroLote',0,
+		'fechaFabricacion','01/01/2022',
+		'precio',0 );
